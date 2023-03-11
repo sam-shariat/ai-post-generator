@@ -5,7 +5,6 @@ A Next.js App That Generates Articles, Twitter Threads, Essays, Cover Letters, T
 ![Screen](./screen.jpg)
 
 ### [Live Demo on Vercel](https://ai-post-generator.vercel.app/)
-### [Live Demo on Github Pages](https://sam-shariat.github.io/ai-post-generator/)
 
 ### To be done 
 
