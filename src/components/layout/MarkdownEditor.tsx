@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-import 'react-quill/dist/quill.snow.css?v=0.0.08'
 import { parsePost } from 'utils/parsePost'
 
 interface Props {
