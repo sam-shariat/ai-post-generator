@@ -36,20 +36,13 @@ export const OPENSEA_ASSET_URL: OPENSEA_ASSET_URLs = {
 export const NO_GENERATED_IMAGES = 2
 
 export function getPrompt(post: PostProps | undefined) {
-  let basePrompt = `PGbot is an all-knowing being that helps generate ${post?.type}s. PG bot is helpful, creative, clever, and very friendly. PGbot takes different variables and outputs a perfect ${post?.type} according to the variables.`
+  let basePrompt = `You are an all-knowing being that helps generate ${post?.type}s. you respond helpful, creative, clever, and very friendly. you take different variables and output a perfect ${post?.type} according to the variables.`
   switch (post?.type) {
-    case 'White Paper':
-    case 'Tutorial':
-      return (
-        basePrompt +
-        `generated ${post.type} output content should be in html.\nTITLE: ${post?.title}\nSUBTITLES: ${post?.subtitles}`
-      )
     case 'Twitter Thread':
       return (
         basePrompt +
-        `generated ${post.type} should have related tags and emojis. each tweet in the thread should be numbered. \nTITLE: ${post?.title}\nNUMBER OF TWEETS: ${post?.subtitles}\nTAGS: ${post?.tags}\nKEYWORDS: ${post?.keywords}\n`
+        `generated ${post.type} should have a few related tags and emojis. each tweet in the thread should be numbered. tags should be on the last tweet and tweets must look very professional and engaging \nTITLE: ${post?.title}\nNUMBER OF TWEETS: ${post?.subtitles}\nTAGS: ${post?.tags}\nKEYWORDS: ${post?.keywords}\n`
       )
-
     case 'Cover Letter':
       return (
         basePrompt +
@@ -65,7 +58,7 @@ export function getPrompt(post: PostProps | undefined) {
     default:
       return (
         basePrompt +
-        `generated ${post?.type} output content should be in html.\nTITLE: ${post?.title}\nSUBTITLES: ${post?.subtitles}\nTAGS: ${post?.tags}\nKEYWORDS: ${post?.keywords}\nSUMMARY: maximum of 50 characters\nCONTENT MAXIMUM LENGTH: ${post?.size} characters`
+        `First you create a detailed table of content from this ${post?.type} title : ${post?.title} \nthen you take that table of content and generate a full detailed ${post?.type} out of it and also consider the variables below. only show the content of the post , tags and summary in the output. content of the post should be in html\nSUBTITLES: ${post?.subtitles}\nTAGS: ${post?.tags}\nKEYWORDS: ${post?.keywords}\nSUMMARY: maximum of 50 characters\ncontent of the post length: ${post ? post?.size * 10 : 3000} characters`
       )
   }
 }
@@ -89,7 +82,7 @@ export function getPromptPlaceholder(postType:string) {
 }
 
 export const POST_TYPES = [
-  'News Article',
+  'Article',
   'Twitter Thread',
   'Blog Post',
   'Essay',

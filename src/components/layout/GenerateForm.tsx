@@ -182,6 +182,8 @@ export default function GenerateForm({ notMobile }: Props) {
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
+            <option value={10}>15</option>
+            <option value={10}>20</option>
           </Select>
         </Flex>
         <Flex direction={'column'} gap={2} width={'100%'}>
