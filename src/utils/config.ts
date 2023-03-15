@@ -8,7 +8,7 @@ export const COPYRIGHT = 'Developed by ❤️'
 export const SITE_DESCRIPTION =
   'Create captivating content with the AI Post Generator App! This app will generate unique, high quality posts and content to help you engage your audience. It uses advanced AI technology to create content that is informative and entertaining while taking into account your target audience. With just a few clicks, you’ll have the perfect post that will keep your readers interested.'
 export const SITE_URL = 'https://ai-post-generator.vercel.app'
-
+export const GITHUB_URL = 'https://github.com/sam-shariat/ai-post-generator';
 export const THEME_INITIAL_COLOR = 'system'
 export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'gray'
 export const THEME_CONFIG = {
