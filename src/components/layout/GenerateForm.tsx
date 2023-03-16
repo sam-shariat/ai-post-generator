@@ -25,7 +25,7 @@ interface Props {
 
 export default function GenerateForm({ notMobile }: Props) {
   const [title, setTitle] = useState('')
-  const [type, setType] = useState('News Article')
+  const [type, setType] = useState('Article')
   const [size, setSize] = useState(PostSizes.Long)
   const [subtitles, setSubtitles] = useState(3)
   const [tags, setTags] = useState(5)
