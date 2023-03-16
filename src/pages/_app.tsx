@@ -4,6 +4,7 @@ import { Web3Provider } from 'providers/Web3'
 import { ChakraProvider } from 'providers/Chakra'
 import { useIsMounted } from 'hooks/useIsMounted'
 import { Seo } from 'components/layout/Seo'
+import { Analytics } from '@vercel/analytics/react';
 import 'styles/quill.snow.css';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </Layout>
         )}
       </Web3Provider>
+      <Analytics />
     </ChakraProvider>
   )
 }
