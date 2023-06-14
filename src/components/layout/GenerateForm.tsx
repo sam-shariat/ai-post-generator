@@ -11,19 +11,24 @@ import {
   Text,
   Textarea,
   useToast,
+  Spacer,
 } from '@chakra-ui/react'
 import { useCreatePost } from 'hooks/useCreatePost'
-import { useState } from 'react'
-import { getPromptPlaceholder, POST_TYPES } from 'utils/config'
+import { useState, useEffect } from 'react'
+import { apiAtom, getPromptPlaceholder, POST_TYPES } from 'utils/config'
 import { PostProps, PostSizes } from 'types'
 import { FaCreativeCommonsSampling } from 'react-icons/fa'
 import { GenerateOutput } from './GenerateOutput'
+import { useAtomValue } from 'jotai'
+import { CreditInfo } from './CreditInfo'
+import ApiKeyInput from './ApiKeyInput'
 
 interface Props {
   notMobile: boolean
 }
 
 export default function GenerateForm({ notMobile }: Props) {
+  const apikey = useAtomValue(apiAtom)
   const [title, setTitle] = useState('')
   const [type, setType] = useState('Article')
   const [size, setSize] = useState(PostSizes.Long)
@@ -54,7 +59,63 @@ export default function GenerateForm({ notMobile }: Props) {
         break
     }
   }
+
+  useEffect(() => {
+    if (error && error.includes('code 400')) {
+      toast({
+        title: 'Out of credits',
+        status: 'info',
+        description: `There are not enough credits in the OpenAI api key, Please enter a new one or recharge your account on OpenAI`,
+        duration: 6000,
+        isClosable: true,
+        variant: 'solid',
+        position: 'top',
+      })
+      return
+    }
+
+    if (error && error.includes('code 401')) {
+      toast({
+        title: 'Wrong API Key',
+        status: 'warning',
+        description: `Your OpenAI API Key is not correct, Please enter a correct one that begins with sk-... `,
+        duration: 6000,
+        isClosable: true,
+        variant: 'solid',
+        position: 'top',
+      })
+      return
+    }
+
+    if (error && error.includes('code 429')) {
+      toast({
+        title: 'Limit reached for requests',
+        status: 'warning',
+        description: `You have hit your assigned rate limit for the API, Please recharge or change your OpenAI Api key`,
+        duration: 6000,
+        isClosable: true,
+        variant: 'solid',
+        position: 'top',
+      })
+      return
+    }
+
+    if (error && error.includes('NoKey')) {
+      toast({
+        title: 'Open AI Api Key is Requiered',
+        status: 'warning',
+        description: `Please Enter your OpenAI API Key, You can get a free one on platform.openai.com if you don't already have one.`,
+        duration: 6000,
+        isClosable: true,
+        variant: 'solid',
+        position: 'top',
+      })
+      return
+    }
+  }, [error])
+
   async function createPost() {
+
     if (title.length < 20) {
       toast({
         title: 'Title is not good enough',
@@ -63,19 +124,20 @@ export default function GenerateForm({ notMobile }: Props) {
         duration: 5000,
         isClosable: true,
       })
-      return null
-    } else {
-      const nextFinalPost: PostProps = {
-        title: title,
-        type: type,
-        size: size,
-        subtitles: subtitles,
-        tags: tags,
-        keywords: keywords,
-        creativity: creativity,
-      }
-      setFinalPost(nextFinalPost)
+      return
     }
+    
+    const nextFinalPost: PostProps = {
+      title: title,
+      type: type,
+      size: size,
+      subtitles: subtitles,
+      tags: tags,
+      keywords: keywords,
+      creativity: creativity,
+      apikey: apikey
+    }
+    setFinalPost(nextFinalPost)
   }
   return (
     <Flex pt={2} flexDirection="column" alignItems={'center'} width={'100%'} gap={4}>
@@ -152,7 +214,20 @@ export default function GenerateForm({ notMobile }: Props) {
             <SliderFilledTrack />
           </SliderTrack>
           <SliderThumb boxSize={6}>
-            <Box color={creativity > 0.8 ? "red.500" : creativity > 0.65 ? "orange.500" : creativity > 0.4 ? "yellow.500": creativity > 0.25 ? "green.500": "blue.500"} as={FaCreativeCommonsSampling} />
+            <Box
+              color={
+                creativity > 0.8
+                  ? 'red.500'
+                  : creativity > 0.65
+                  ? 'orange.500'
+                  : creativity > 0.4
+                  ? 'yellow.500'
+                  : creativity > 0.25
+                  ? 'green.500'
+                  : 'blue.500'
+              }
+              as={FaCreativeCommonsSampling}
+            />
           </SliderThumb>
         </Slider>
       </Box>
@@ -210,6 +285,11 @@ export default function GenerateForm({ notMobile }: Props) {
         post={String(postData)}
         loading={loading}
       />
+      <Flex gap={1} py={2} px={1} width="100%" maxWidth={800} direction="row" alignItems={'center'}>
+        <CreditInfo />
+        <Spacer />
+        <ApiKeyInput />
+      </Flex>
     </Flex>
   )
 }

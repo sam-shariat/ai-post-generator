@@ -13,7 +13,7 @@ import {
   useDisclosure,
   useClipboard,
 } from '@chakra-ui/react'
-
+import { useEffect } from 'react';
 import { FaEnvelope, FaShareAlt, FaTimes, FaTwitter } from 'react-icons/fa'
 import { TwitterShareButton } from 'react-share'
 import EmailShareButton from 'react-share/lib/EmailShareButton'
@@ -38,6 +38,12 @@ export function GenerateOutput({ post, postType, onGenerateClick, loading }: Pro
       url: SITE_URL,
     })
   }
+
+  useEffect(()=> {
+    if(post === 'undefined' && isOpen && !loading){
+      onClose();
+    }
+  },[loading])
 
   return (
     <>

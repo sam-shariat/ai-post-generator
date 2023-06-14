@@ -18,6 +18,7 @@ export interface PostProps {
   tags: number;
   keywords: number;
   creativity: number;
+  apikey: string;
 }
 
 export type Option = {

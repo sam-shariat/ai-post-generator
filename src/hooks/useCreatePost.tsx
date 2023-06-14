@@ -2,10 +2,6 @@ import { Configuration, OpenAIApi } from 'openai'
 import { useState, useEffect } from 'react'
 import { PostProps, State } from 'types'
 import { getPrompt } from 'utils/config'
-const configuration = new Configuration({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-})
-const openai = new OpenAIApi(configuration)
 
 // convert this text into instagram post/ twitter thread with numbers and related emojis:
 
@@ -16,7 +12,10 @@ export function useCreatePost(post: PostProps | undefined) {
     data: undefined,
   })
   const [prevPost, setPrevPost] = useState<PostProps>()
-
+  const configuration = new Configuration({
+    apiKey: post?.apikey,
+  })
+  const openai = new OpenAIApi(configuration)
   useEffect(() => {
     const getPost = async () => {
       try {
