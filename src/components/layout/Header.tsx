@@ -3,7 +3,6 @@ import { Flex, useColorModeValue, Spacer, Heading, useMediaQuery } from '@chakra
 import { SITE_NAME, SITE_NAME_MOBILE } from 'utils/config'
 import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
-import { ConnectKitButton } from 'connectkit'
 import { GithubStarButton } from './GithubStarButton'
 
 interface Props {
@@ -32,7 +31,6 @@ export function Header(props: Props) {
 
       <Flex alignItems="center" gap={4}>
         <GithubStarButton label={'Star On Github'} />
-        {notMobile && <ConnectKitButton showAvatar={notMobile} showBalance={notMobile} />}
         <ThemeSwitcher />
       </Flex>
     </Flex>
