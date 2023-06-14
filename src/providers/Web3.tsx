@@ -1,6 +1,6 @@
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
+import { publicProvider } from 'wagmi/providers/public'
 import { ETH_CHAINS, SITE_NAME } from 'utils/config'
 import { useColorMode } from '@chakra-ui/react'
 import { ReactNode } from 'react'
