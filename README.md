@@ -1,4 +1,4 @@
-# AI NFT GENERATOR
+# AI Post GENERATOR
 
 A Next.js App That Generates Articles, Twitter Threads, Essays, Cover Letters, Tutorials And More Using OpenAI ⚡
 
@@ -35,8 +35,10 @@ A Next.js App That Generates Articles, Twitter Threads, Essays, Cover Letters, T
 ## Development 🛠️
 
 ```bash
+npm run install
 npm run dev
 # or
+yarn install
 yarn dev
 ```
 
